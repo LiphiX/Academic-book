@@ -15,7 +15,7 @@ return new class extends Migration
             //$table->id();
             $table->increments('id');
 
-            $table->string('name', 45);
+            $table->string('name', 85);
 
             $table->integer('department_id')->unsigned();
 

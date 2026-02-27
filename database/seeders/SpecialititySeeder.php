@@ -4,6 +4,7 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 use function Laravel\Prompts\table;
 
 class SpecialititySeeder extends Seeder
@@ -13,7 +14,7 @@ class SpecialititySeeder extends Seeder
      */
     public function run(): void
     {
-        DB:table('specialities')->insert([
+        DB::table('specialities')->insert([
             ['name' => 'Фундаментальна информатика', 'department_id' => 1],
             ['name' => 'Информатика и вычислительная техника', 'department_id' => 1],
             ['name' => 'Информационные системы и технологии', 'department_id' => 1],
