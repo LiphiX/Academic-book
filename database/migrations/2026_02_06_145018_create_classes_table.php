@@ -24,7 +24,7 @@ return new class extends Migration
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('discipline_id')->references('id')->on('disciplines');
-            $table->foreign('classType_id')->references('id')->on('classtypes');
+            $table->foreign('classType_id')->references('id')->on('class_types');
 
             $table->timestamps();
         });

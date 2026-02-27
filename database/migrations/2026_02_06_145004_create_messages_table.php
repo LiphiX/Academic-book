@@ -16,12 +16,12 @@ return new class extends Migration
             $table->increments('id');
 
             $table->integer('sender_id')->unsigned()->nullable();
-            $table->datetime('sendDate');
+            $table->datetime('send_date');
             $table->text('content');
-            $table->boolean('isRead')->default(false);
+            $table->boolean('is_read')->default(false);
             $table->integer('chat_id')->unsigned();
 
-            $table->foreign('sender_id')->references('id')->on('useraccounts')->onDelete('set null');
+            $table->foreign('sender_id')->references('id')->on('user_accounts')->onDelete('set null');
             $table->foreign('chat_id')->references('id')->on('chats')->onDelete('cascade');
 
             $table->timestamps();

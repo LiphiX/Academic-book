@@ -15,10 +15,10 @@ return new class extends Migration
             //$table->id();
             $table->increments('id');
 
-            $table->date('foundationDate');
+            $table->date('foundation_date');
             $table->integer('founder_id')->unsigned();
 
-            $table->foreign('founder_id')->references('id')->on('useraccounts');
+            $table->foreign('founder_id')->references('id')->on('user_accounts');
 
             $table->timestamps();
         });

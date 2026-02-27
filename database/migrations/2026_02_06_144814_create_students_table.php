@@ -18,7 +18,7 @@ return new class extends Migration
             $table->integer('person_id')->unsigned();
             $table->integer('group_id')->unsigned();
 
-            $table->date('receiptDate');
+            $table->date('receipt_date');
 
             $table->foreign('person_id')->references('id')->on('people');
             $table->foreign('group_id')->references('id')->on('groups');

@@ -11,11 +11,16 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classtypes', function (Blueprint $table) {
+        Schema::create('user_accounts', function (Blueprint $table) {
             //$table->id();
             $table->increments('id');
 
-            $table->string('name', 45);
+            $table->string('login', 75);
+            $table->string('password'. 75);
+
+            $table->integer('person_id')->unsigned();
+
+            $table->foreign('person_id')->references('id')->on('people');
 
             $table->timestamps();
         });
@@ -26,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classtypes');
+        Schema::dropIfExists('user_accounts');
     }
 };

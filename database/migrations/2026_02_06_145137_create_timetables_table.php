@@ -15,14 +15,14 @@ return new class extends Migration
             //$table->id();
             $table->increments('id');
 
-            $table->integer('classNumber_id')->unsigned();
+            $table->integer('class_number_id')->unsigned();
             $table->integer('teacher_id')->unsigned();
             $table->integer('group_id')->unsigned();
             $table->integer('discipline_id')->unsigned();
 
             $table->integer('dayOfWeek')->unsigned();
 
-            $table->foreign('classNumber_id')->references('id')->on('classNumbers');
+            $table->foreign('class_number_id')->references('id')->on('class_numbers');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('discipline_id')->references('id')->on('disciplines');

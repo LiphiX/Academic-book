@@ -11,13 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('classnumbers', function (Blueprint $table) {
+        Schema::create('class_types', function (Blueprint $table) {
             //$table->id();
             $table->increments('id');
 
-            $table->integer('number')->unsigned();
-            $table->time('start');
-            $table->time('end');
+            $table->string('name', 45);
 
             $table->timestamps();
         });
@@ -28,6 +26,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('classnumbers');
+        Schema::dropIfExists('class_types');
     }
 };
