@@ -16,7 +16,9 @@ return new class extends Migration
             $table->increments('id');
 
             $table->string('name', 30);
+            $table->integer('speciality_id')->unsigned();
 
+            $table->foreign('speciality_id')->references('id')->on('specialities');
             $table->timestamps();
         });
     }
