@@ -25,4 +25,8 @@ class Discipline extends Model
     public function timetable(){
         return $this->hasMany(Timetable::class);
     }
+
+    public function speciality(){
+        return $this->belongsToMany(Speciality::class, 'curriculums');
+    }
 }

@@ -17,7 +17,7 @@ class Lesson extends Model
       "group_id",
       "discipline_id",
       "date",
-      "classType_id"
+      "class_type_id"
     ];
 
     protected $table = 'classes';

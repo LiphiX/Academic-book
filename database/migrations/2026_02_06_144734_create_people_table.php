@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('passport', 45);
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

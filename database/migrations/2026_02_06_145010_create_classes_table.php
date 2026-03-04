@@ -18,13 +18,13 @@ return new class extends Migration
             $table->integer('group_id')->unsigned();
             $table->integer('teacher_id')->unsigned();
             $table->integer('discipline_id')->unsigned();
-            $table->integer('classType_id')->unsigned();
+            $table->integer('class_type_id')->unsigned();
             $table->date('date');
 
             $table->foreign('group_id')->references('id')->on('groups');
             $table->foreign('teacher_id')->references('id')->on('teachers');
             $table->foreign('discipline_id')->references('id')->on('disciplines');
-            $table->foreign('classType_id')->references('id')->on('class_types');
+            $table->foreign('class_type_id')->references('id')->on('class_types');
 
             $table->timestamps();
         });

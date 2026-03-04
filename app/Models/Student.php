@@ -13,9 +13,9 @@ class Student extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'Person_id',
-        'Group_id',
-        'ReceiptDate'
+        'person_id',
+        'group_id',
+        'receipt_date'
     ];
 
     public function person(){

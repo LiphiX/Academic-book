@@ -21,6 +21,7 @@ return new class extends Migration
             $table->foreign('speciality_id')->references('id')->on('specialities')->onDelete('cascade');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

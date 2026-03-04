@@ -18,6 +18,8 @@ class UserAccount extends Model
       "password"
     ];
 
+    protected $table = 'user_accounts';
+
     //M:1 - One account is registered by one person.
     public function person(){
         return $this->belongsTo(Person::class);

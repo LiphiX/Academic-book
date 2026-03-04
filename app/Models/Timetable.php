@@ -13,7 +13,7 @@ class Timetable extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        "classNumber_id",
+        "class_number_id",
         "teacher_id",
         "group_id",
         "discipline_id",

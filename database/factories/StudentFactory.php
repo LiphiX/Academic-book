@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Group;
+use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,14 @@ class StudentFactory extends Factory
     public function definition(): array
     {
         return [
-            'receiptDate' => $this->faker->dateTimeBetween('2023-01-01', '2024-12-31'),
+            'person_id' => Person::factory(),
+            'receipt_date' => $this->faker->dateTimeBetween('2023-01-01', '2024-12-31'),
         ];
+    }
+
+    public function forGroup(Group $group){
+        return $this->state([
+            'group_id' => $group->id
+        ]);
     }
 }

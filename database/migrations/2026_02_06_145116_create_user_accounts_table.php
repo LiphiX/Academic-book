@@ -16,13 +16,14 @@ return new class extends Migration
             $table->increments('id');
 
             $table->string('login', 75);
-            $table->string('password'. 75);
+            $table->string('password', 75);
 
             $table->integer('person_id')->unsigned();
 
             $table->foreign('person_id')->references('id')->on('people');
 
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use App\Models\Department;
+use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -17,7 +19,13 @@ class TeacherFactory extends Factory
     public function definition(): array
     {
         return [
-            //
+            'person_id' => Person::factory(),
         ];
+    }
+
+    public function forDepartment(Department $department){
+        return $this->state([
+            'department_id' => $department->id,
+        ]);
     }
 }

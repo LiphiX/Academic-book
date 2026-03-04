@@ -28,6 +28,7 @@ return new class extends Migration
             $table->foreign('discipline_id')->references('id')->on('disciplines');
 
             $table->timestamps();
+            $table->softDeletes();
         });
 
         DB::statement('ALTER TABLE timetables add CONSTRAINT chk_dayofweek_range CHECK (dayOfWeek >= 1 AND dayOfWeek <= 6);');

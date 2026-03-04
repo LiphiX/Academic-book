@@ -10,13 +10,11 @@ class ClassType extends Model
 {
     use HasFactory;
 
-    use SoftDeletes;
-
     protected $fillable = [
         "name"
     ];
 
-    protected $table = "classTypes";
+    protected $table = "class_types";
 
     //1:M - One type belongs to many classes.
     public function lessons(){

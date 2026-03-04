@@ -10,15 +10,13 @@ class ClassNumber extends Model
 {
     use HasFactory;
 
-    use SoftDeletes;
-
     protected $fillable = [
         "number",
         "start",
         "end"
     ];
 
-    protected $table = "classNumbers";
+    protected $table = "class_numbers";
 
     //1:M.
     public function timetables(){

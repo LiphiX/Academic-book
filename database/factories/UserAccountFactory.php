@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Person;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -20,5 +21,11 @@ class UserAccountFactory extends Factory
             'login' => $this->faker->unique()->userName(),
             'password' => $this->faker->password(),
         ];
+    }
+
+    public function forPerson(Person $person){
+        return $this->state([
+           'person_id' => $person->id
+        ]);
     }
 }

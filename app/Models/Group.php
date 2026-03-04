@@ -13,7 +13,8 @@ class Group extends Model
     use SoftDeletes;
 
     protected $fillable = [
-        'name'
+        'name',
+        'speciality_id'
     ];
 
     //1:M - One group contains many students.
@@ -21,10 +22,15 @@ class Group extends Model
         return $this->hasMany(Student::class);
     }
 
+    public function speciality(){
+        return $this->belongsTo(Speciality::class);
+    }
+
     //1:M - One group has many classes.
     public function lessons(){
         return $this->hasMany(Lesson::class);
     }
+
 
     public function timetables(){
         return $this->hasMany(Timetable::class);
