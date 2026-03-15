@@ -2,13 +2,16 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('main');
-});
+Route::get('/registration', [\App\Http\Controllers\AuthenticationController::class, 'getRegistration'])->name('registration');
+Route::post('/registration', [\App\Http\Controllers\AuthenticationController::class, 'postRegistration']);
+Route::get('/login', [\App\Http\Controllers\AuthenticationController::class, 'getLogin'])->name('login');
+Route::post('/login', [\App\Http\Controllers\AuthenticationController::class, 'postLogin'])->name('login');
+Route::get('/logout', [\App\Http\Controllers\AuthenticationController::class, 'logout'])->name("logout");
 
-Route::get('/registration', [\App\Http\Controllers\AuthenticationController::class, 'registration']);
-Route::post('/registration', [\App\Http\Controllers\AuthenticationController::class, 'registration']);
-Route::get('/login', [\App\Http\Controllers\AuthenticationController::class, 'login']);
-Route::post('/login', [\App\Http\Controllers\AuthenticationController::class, 'login']);
-Route::get('/logout', [\App\Http\Controllers\AuthenticationController::class, 'logout']);
-Route::post('/logout', [\App\Http\Controllers\AuthenticationController::class, 'logout']);
+Route::middleware(['auth'])->group(function () {
+    Route::get('/', function () {
+        return view('main');
+    })->name('main');
+
+    Route::get('/account/profile', [\App\Http\Controllers\AccountController::class, 'getProfile'])->name('account.profile');
+});

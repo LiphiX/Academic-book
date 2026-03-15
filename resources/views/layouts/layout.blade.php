@@ -1,20 +1,23 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" data-bs-theme="dark">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Title</title>
 
+    <link rel="stylesheet" href="{{asset("lib/bootstrap/css/bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
 
+    <script src="{{asset("/lib/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("lib/jquery/jquery.min.js")}}"></script>
 </head>
 <body>
 <div class="main-container">
     <header class="w-100">
         @section('navigation_section')
-            <nav class="navbar">
+            <nav id="navbar">
                 <ul class="navbar-content">
+                    @auth
                     <li class="navbar-item">
                         <div class="navbar-toggle">
                             <button class="btn-toggle" aria-label="Раскрыть меню">
@@ -24,14 +27,39 @@
                             </button>
                         </div>
                     </li>
-                    <li class="navbar-item">
+                    @endauth
+                    <li class="navbar-item w-100">
                         <div class="d-flex align-items-center">
                             <svg class="navbar-menu-logo me-2" width="24px" height="24px" fill="white">
                                 <path xmlns="http://www.w3.org/2000/svg" d="m4.65656,1.55555c1.01269,0 1.83458,0.85075 1.83458,1.89899l0,17.09091c0,1.04824 -0.82189,1.89899 -1.83458,1.89899l-1.82449,0c-1.01361,0 -1.83458,-0.85075 -1.83458,-1.89899l0,-17.09091c0,-1.04824 0.82098,-1.89899 1.83458,-1.89899l1.82449,0zm6.42103,0c1.01269,0 1.83458,0.85075 1.83458,1.89899l0,17.09091c0,1.04824 -0.82189,1.89899 -1.83458,1.89899l-1.82999,0c-1.01361,0 -1.83458,-0.85075 -1.83458,-1.89899l0,-17.09091c0,-1.04824 0.82098,-1.89899 1.83458,-1.89899l1.82999,0zm8.32937,3.36425l3.54074,14.70103c0.24492,1.01691 -0.35407,2.04806 -1.33649,2.30253l-1.80064,0.4643c-0.98242,0.25352 -1.9786,-0.36556 -2.22351,-1.38341l-3.54074,-14.70103c-0.24583,-1.01786 0.35316,-2.04806 1.33558,-2.30253l1.80064,-0.4643c0.98242,-0.25446 1.9786,0.36556 2.22443,1.38341z"></path>
                             </svg>
-                            <h3>Academic book</h3>
+                            <h3 class="navbar-title">Academic book</h3>
                         </div>
                     </li>
+                    <li class="navbar-item d-flex justify-content-end w-100">
+                        <div class="d-flex gap-2">
+                            @auth
+                                <div class="dropdown">
+                                    <a class="navbar-link dropdown-toggle" id="account-menu" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <img src="{{ asset('/images/AccountIcon.png') }}" width="48px" height="48px" alt="Учётная запись">
+                                    </a>
+
+                                    <ul class="dropdown-menu position-fixed" aria-labelledby="account-menu">
+                                        <li>
+                                            <a class="dropdown-item" role="button" href="{{route("account.profile")}}">Профиль</a>
+                                        </li>
+                                        <li class="border-top border-light border-1">
+                                            <a class="dropdown-item" role="button" href="{{route("logout")}}">Выйти</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            @else
+                                <a class="navbar-link" href="{{ route("registration")  }}">Регистрация</a>
+                                <a class="navbar-link" href="{{ route("login") }}">Авторизация</a>
+                            @endauth
+                        </div>
+                    </li>
+                        @auth
                     <li class="navbar-item">
                         <div class="navbar-menu-overlay"></div>
                         <div class="navbar-menu" id="main-menu">
@@ -49,7 +77,7 @@
                             </div>
                             <ul class="navbar-menu-content">
                                 <li class="navbar-menu-item">
-                                    <a class="navbar-menu-link">
+                                    <a class="navbar-menu-link" href="/">
                                         <span class="navbar-menu-indicator"></span>
                                         <span class="navbar-menu-icon">🏘️</span>
                                         <span class="navbar-menu-label">Главная</span>
@@ -86,6 +114,7 @@
                             </ul>
                         </div>
                     </li>
+                        @endauth
                 </ul>
             </nav>
         @show

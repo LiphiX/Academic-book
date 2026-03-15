@@ -2,53 +2,60 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\LoginRequest;
+use App\Http\Requests\RegistrationRequest;
+use App\Models\Person;
+use App\Models\Role;
 use App\Models\UserAccount;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Symfony\Component\Console\Output\ConsoleOutput;
 
 class AuthenticationController extends Controller
 {
-    public function registration(Request $request){
-        $request->validate([
-            'login' => 'required|unique:user_accounts,login',
-            'password' => 'required|min:8',
+    public function getRegistration(Request $request){
+        return View('authentication.registration');
+    }
+
+    public function postRegistration(RegistrationRequest $request){
+        $person = Person::create([
+           'surname' => $request->surname,
+           'name' => $request->name,
+           'patronymic' => $request->patronymic,
+           'passport' => $request->passport,
         ]);
 
         $user = UserAccount::create([
             'login' => $request->login,
             'password' => Hash::make($request->password),
-            'person_id' => 1
+            'person_id' => $person->id,
+            'role_id' => Role::where('name', 'guest')->first()->id,
         ]);
 
+        return redirect()->route('login');
     }
 
-    public function login(Request $request){
+    public function getLogin(Request $request){
+        return View('authentication.login');
+    }
 
-        //dd("TEST");
-        Log::info("Test");
-
+    public function postLogin(LoginRequest $request){
         $credentials = $request->only('login', 'password');
 
         if(auth()->attempt($credentials)){
-            $response = response()->json([
-                'success' => true,
-                'message' => 'Login successful',
-                'user' => auth()->user()
-            ], 200);
+            $request->session()->regenerate();
+
+            return redirect()->route('main');
         }
         else{
-            $response = response()->json([
-                'success' => false,
-                'message' => 'Login failed',
-            ], 401);
+            return back()->withErrors([$request]);
         }
-        return $response;
     }
 
     public function logout(Request $request){
         auth()->logout();
-        return response()->json(['message' => 'Successfully logged out']);
+        return redirect()->route('main');
     }
 }

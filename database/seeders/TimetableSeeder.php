@@ -39,6 +39,7 @@ class TimetableSeeder extends Seeder
                             'group_id' => $group->id,
                             'dayOfWeek' => $day,
                             'discipline_id' => $discipline->id,
+                            'class_type_id' => 1
                         ]);
 
                         $dayLoad[$day]++;

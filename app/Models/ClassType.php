@@ -17,7 +17,7 @@ class ClassType extends Model
     protected $table = "class_types";
 
     //1:M - One type belongs to many classes.
-    public function lessons(){
-        return $this->hasMany(Lesson::class);
+    public function timetable(){
+        return $this->hasMany(Timetable::class);
     }
 }

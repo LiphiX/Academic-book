@@ -6,6 +6,7 @@ use App\Models\ClassType;
 use App\Models\Discipline;
 use App\Models\Group;
 use App\Models\Teacher;
+use App\Models\Timetable;
 use Illuminate\Database\Eloquent\Factories\Factory;
 
 /**
@@ -25,6 +26,13 @@ class LessonFactory extends Factory
         ];
     }
 
+    public function forTimetable(Timetable $timetable){
+        return $this->state([
+            'timetable_id' => $timetable->id
+        ]);
+    }
+
+    /*
     public function forTeacher(Teacher $teacher){
         return $this->state([
            'teacher_id' => $teacher->id,
@@ -48,6 +56,7 @@ class LessonFactory extends Factory
             'class_type_id' => $classType->id,
         ]);
     }
+    */
 
 
 }

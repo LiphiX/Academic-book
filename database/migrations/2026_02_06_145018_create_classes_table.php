@@ -11,18 +11,18 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('people', function (Blueprint $table) {
+        Schema::create('classes', function (Blueprint $table) {
             //$table->id();
             $table->increments('id');
 
-            $table->string('surname', 45);
-            $table->string('name', 45);
-            $table->string('patronymic', 45)->nullable();
+            $table->integer('timetable_id')->unsigned();
 
-            $table->string('passport', 10)->unique();
+            $table->boolean('is_cancelled')->default(false);
+            $table->date('date');
+
+            $table->foreign('timetable_id')->references('id')->on('timetables');
 
             $table->timestamps();
-            $table->softDeletes();
         });
     }
 
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('people');
+        Schema::dropIfExists('classes');
     }
 };

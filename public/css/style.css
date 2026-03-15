@@ -1,8 +1,9 @@
 :root{
     --main-font: "Cascadia Mono";
 
+    --color-dark-theme: rgba(255, 255, 255, 1);
 
-    --navbar-bg: rgba(52, 58, 64, 1);
+    --navbar-bg: /*rgba(52, 58, 64, 1) */ rgba(18, 19, 20, 1);
     --navbar-item-color: rgba(255, 255, 255, 1);
     --navbar-menu-bg: rgba(33, 37, 41, 1.0);
     --navbar-menu-overlay-bg: rgba(52, 58, 64, 0.2)
@@ -84,6 +85,10 @@ body, html{
     justify-content: space-between;
 }
 
+.justify-content-end{
+    justify-content: flex-end;
+}
+
 .align-items-center{
     align-items: center;
 }
@@ -100,7 +105,7 @@ body, html{
     display: inline-block;
 }
 
-.navbar{
+.navbar, #navbar{
     display: block;
     background: var(--navbar-bg);
     color: var(--navbar-item-color);
@@ -116,6 +121,8 @@ body, html{
     padding-left: 1em;
     padding-right: 1em;
     gap: 1em;
+
+    margin: 0;
 }
 
 .navbar-toggle{
@@ -144,6 +151,29 @@ body, html{
     display: block;
 }
 
+.navbar-title{
+    margin: 0;
+    padding: 0;
+}
+
+.navbar-label{
+    text-decoration: none;
+    display: block;
+}
+
+.navbar-link{
+    display: block;
+    text-decoration: none;
+    cursor: pointer;
+    color: var(--navbar-item-color);
+    opacity: 1;
+    transition: opacity 0.25s ease;
+}
+
+.navbar-link:hover{
+    opacity: 0.5;
+}
+
 .navbar-menu{
     display: block;
     position: fixed;
@@ -154,7 +184,7 @@ body, html{
     min-height: 100%;
     padding: 12px;
     padding-right: 0;
-    transition: transform 0.5s ease-in-out, padding-right 0s linear 0.5s;
+    transition: transform 0.25s ease-in-out, padding-right 0s linear 0.25s;
     border-top-right-radius: 6px;
     border-bottom-right-radius: 6px;
 
@@ -183,7 +213,7 @@ body, html{
     background: var(--navbar-menu-overlay-bg);
     backdrop-filter: blur(0.9px);
     pointer-events: all;
-    transition: opacity 0.25s ease, visibility 0s linear 0.25s;
+    transition: opacity 0.5s ease, visibility 0s linear 0.5s;
 }
 
 .navbar-item.navbar-menu{
@@ -202,7 +232,7 @@ body, html{
     visibility: visible;
     opacity: 1;
 
-    transition: opacity 0.25s ease, visibility 0s linear;
+    transition: opacity 0.5s ease, visibility 0s linear;
 }
 
 .navbar-menu-item{
@@ -233,6 +263,8 @@ body, html{
     transition: background-color 0.25s ease/*, transform 0.25s ease*/;
     padding: 2px 0;
     padding-right: 12px;
+    color: rgba(255, 255, 255, 1);
+    text-decoration: none;
 }
 
 
@@ -272,3 +304,50 @@ body, html{
         min-width: 80%;
     }
 }
+
+
+.card-form {
+    border-radius: 10px;
+    background: #1d1f21;
+    box-shadow: rgba(49, 94, 251, 0.4) 10px 10px 10px -7px
+}
+.card-profile{
+    display: block;
+    margin-left: auto;
+    margin: auto;
+    border-radius: 10px;
+    background: #1d1f21;
+    box-shadow: rgba(49, 94, 251, 0.4) 10px 10px 10px -7px
+}
+
+.card-profile-item{
+    display: block;
+    position: relative;
+    margin-left: 1rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+}
+
+.card-profile-item-input{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: var(--color-dark-theme);
+
+    background: transparent;
+
+    transition: border-color 0.5s ease;
+}
+
+.card-profile-item-input:focus{
+    outline: 0;
+    border-width: 0 0 2px;
+    border-color: rgba(255, 255, 255, 0.1);
+    background: transparent;
+}
+
+.card-profile-item-label{
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+}
+

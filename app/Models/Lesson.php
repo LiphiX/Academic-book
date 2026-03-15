@@ -13,15 +13,23 @@ class Lesson extends Model
     use SoftDeletes;
 
     protected $fillable = [
+      "timetable_id",
+      "is_cancelled",
+        /*
       "teacher_id",
       "group_id",
       "discipline_id",
+        */
       "date",
-      "class_type_id"
     ];
 
     protected $table = 'classes';
 
+    public function timetable(){
+        return $this->belongsTo(Timetable::class);
+    }
+
+    /*
     //M:1 - One lesson is taught by one teacher.
     public function teacher(){
         return $this->belongsTo(Teacher::class);
@@ -41,6 +49,7 @@ class Lesson extends Model
     public function classType(){
         return $this->belongsTo(ClassType::class);
     }
+    */
 
     //1:M - Many grades are given in one classes.
     public function assesments(){

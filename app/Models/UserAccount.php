@@ -16,7 +16,9 @@ class UserAccount extends Model implements Authenticatable
     protected $fillable = [
       "person_id",
       "login",
-      "password"
+      "password",
+      "role_id",
+      "remember_token"
     ];
 
     protected $table = 'user_accounts';
@@ -24,6 +26,10 @@ class UserAccount extends Model implements Authenticatable
     //M:1 - One account is registered by one person.
     public function person(){
         return $this->belongsTo(Person::class);
+    }
+
+    public function role(){
+        return $this->belongsTo(Role::class);
     }
 
     //1:M - One user can send many messages.
@@ -58,16 +64,16 @@ class UserAccount extends Model implements Authenticatable
 
     public function getRememberToken()
     {
-        // TODO: Implement getRememberToken() method.
+        return $this->rememberToken;
     }
 
     public function setRememberToken($value)
     {
-        // TODO: Implement setRememberToken() method.
+        $this->rememberToken = $value;
     }
 
     public function getRememberTokenName()
     {
-        // TODO: Implement getRememberTokenName() method.
+        return 'remember_token';
     }
 }

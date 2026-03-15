@@ -148,7 +148,7 @@ class PersonFactory extends Factory
             'surname' => $this->getLastName($isMale),
             'name' => $this->getFirstName($isMale),
             'patronymic'=> $this->getPatronymic($isMale),
-            'passport' => rand(1000, 9999) . " " . rand(1_000_000, 9_999_999)
+            'passport' => rand(1000, 9999) . rand(100_000, 999_999)
         ];
     }
 

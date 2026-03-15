@@ -6,6 +6,7 @@ use App\Models\ClassType;
 use App\Models\Group;
 use App\Models\Lesson;
 use App\Models\Teacher;
+use App\Models\Timetable;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use function Laravel\Prompts\warning;
@@ -17,6 +18,7 @@ class LessonSeeder extends Seeder
      */
     public function run(): void
     {
+        /*
         foreach(Group::with('speciality.disciplines')->get() as $group) {
             $speciality = $group->speciality;
             if($speciality){
@@ -36,6 +38,11 @@ class LessonSeeder extends Seeder
                     ->forGroup($group)
                     ->create([]);
             }
+        */
+
+        foreach (Timetable::all() as $timetable) {
+            Lesson::factory()->count(2)->create([])
+                ->forTimetable($timetable);
         }
     }
 }

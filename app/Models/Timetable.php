@@ -17,8 +17,13 @@ class Timetable extends Model
         "teacher_id",
         "group_id",
         "discipline_id",
+        "class_type_id",
         "dayOfWeek"
     ];
+
+    public function classType(){
+        return $this->belongsTo(ClassType::class);
+    }
 
     //M:1
     public function classNumber(){

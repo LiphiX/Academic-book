@@ -19,8 +19,10 @@ return new class extends Migration
             $table->string('password', 75);
 
             $table->integer('person_id')->unsigned();
+            $table->integer('role_id')->unsigned();
 
             $table->foreign('person_id')->references('id')->on('people');
+            $table->foreign('role_id')->references('id')->on('roles');
 
             $table->rememberToken();
 
