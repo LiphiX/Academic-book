@@ -1,8 +1,8 @@
 @extends('layouts.layout')
 
 @section('main_section')
-    <div class="d-flex justify-content-center align-content-center m-4">
-        <form method="post" action="{{ route('login') }}" class="card-form w-50 p-5">
+    <div class="d-flex flex-column justify-content-center align-content-center align-items-center m-1">
+        <form method="post" action="{{ route('login') }}" class="authentication-form p-5">
             @csrf
             <div class="d-flex flex-column justify-content-center align-content-center">
                 <div class="mb-3" data-bs-theme="dark">
@@ -21,5 +21,11 @@
             </div>
             <button type="submit" class="btn btn-primary">Сохранить</button>
         </form>
+        <div class="d-block">
+            <p>
+                Нет учётной записи?
+                <a class="link" href="{{ route('registration') }}">Тогда выполните её регистрацию!</a>
+            </p>
+        </div>
     </div>
 @endsection

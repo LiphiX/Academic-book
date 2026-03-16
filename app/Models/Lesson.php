@@ -53,7 +53,7 @@ class Lesson extends Model
 
     //1:M - Many grades are given in one classes.
     public function assesments(){
-        return $this->hasMany(Assesment::class);
+        return $this->hasMany(Assessment::class);
     }
 
     //1:M - One lesson contains many attendance records.

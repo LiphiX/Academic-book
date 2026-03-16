@@ -41,8 +41,7 @@ class LessonSeeder extends Seeder
         */
 
         foreach (Timetable::all() as $timetable) {
-            Lesson::factory()->count(2)->create([])
-                ->forTimetable($timetable);
+            Lesson::factory()->count(2)->forTimetable($timetable)->create([]);
         }
     }
 }

@@ -6,6 +6,7 @@ use Illuminate\Contracts\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use phpDocumentor\Reflection\Types\Boolean;
 
 class UserAccount extends Model implements Authenticatable
 {
@@ -75,5 +76,13 @@ class UserAccount extends Model implements Authenticatable
     public function getRememberTokenName()
     {
         return 'remember_token';
+    }
+
+    public function hasRole($role) : bool{
+        if(is_array($role)){
+            return $this->role()->whereIn('name', $role)->exists();
+        }
+
+        return $this->role()->where('name', $role)->exists();
     }
 }

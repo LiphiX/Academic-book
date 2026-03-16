@@ -1,5 +1,6 @@
 :root{
     --main-font: "Cascadia Mono";
+    --main-font-size: 16px;
 
     --color-dark-theme: rgba(255, 255, 255, 1);
 
@@ -7,6 +8,10 @@
     --navbar-item-color: rgba(255, 255, 255, 1);
     --navbar-menu-bg: rgba(33, 37, 41, 1.0);
     --navbar-menu-overlay-bg: rgba(52, 58, 64, 0.2)
+}
+
+html{
+    font-size: 16px;
 }
 
 body{
@@ -287,7 +292,11 @@ body, html{
 }
 
 .main-footer{
-    border-top: 2px solid rgba(0, 0, 0, 0.05)
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-top: 2px solid rgba(255, 255, 255, 0.05);
+    font-size: 0.75rem;
 }
 
 .main-content{
@@ -297,12 +306,6 @@ body, html{
 
 .main-container{
     display: block;
-}
-
-@media(max-width: 768px){
-    .navbar-menu.opened{
-        min-width: 80%;
-    }
 }
 
 
@@ -349,5 +352,38 @@ body, html{
     display: block;
     white-space: nowrap;
     overflow: hidden;
+}
+
+.authentication-form{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    width: 100%;
+    padding: 1rem;
+    gap: 1rem;
+}
+
+.link{
+    text-decoration: none;
+    cursor: pointer;
+}
+
+main{
+    padding: 1rem;
+}
+
+@media(max-width: 768px){
+    .navbar-menu.opened{
+        min-width: 100%;
+    }
+    .main-footer{
+        flex-direction: column;
+    }
+}
+
+@media(min-width: 544px){
+    .authentication-form{
+        width: 24rem;
+    }
 }
 

@@ -30,9 +30,11 @@
                     @endauth
                     <li class="navbar-item w-100">
                         <div class="d-flex align-items-center">
-                            <svg class="navbar-menu-logo me-2" width="24px" height="24px" fill="white">
-                                <path xmlns="http://www.w3.org/2000/svg" d="m4.65656,1.55555c1.01269,0 1.83458,0.85075 1.83458,1.89899l0,17.09091c0,1.04824 -0.82189,1.89899 -1.83458,1.89899l-1.82449,0c-1.01361,0 -1.83458,-0.85075 -1.83458,-1.89899l0,-17.09091c0,-1.04824 0.82098,-1.89899 1.83458,-1.89899l1.82449,0zm6.42103,0c1.01269,0 1.83458,0.85075 1.83458,1.89899l0,17.09091c0,1.04824 -0.82189,1.89899 -1.83458,1.89899l-1.82999,0c-1.01361,0 -1.83458,-0.85075 -1.83458,-1.89899l0,-17.09091c0,-1.04824 0.82098,-1.89899 1.83458,-1.89899l1.82999,0zm8.32937,3.36425l3.54074,14.70103c0.24492,1.01691 -0.35407,2.04806 -1.33649,2.30253l-1.80064,0.4643c-0.98242,0.25352 -1.9786,-0.36556 -2.22351,-1.38341l-3.54074,-14.70103c-0.24583,-1.01786 0.35316,-2.04806 1.33558,-2.30253l1.80064,-0.4643c0.98242,-0.25446 1.9786,0.36556 2.22443,1.38341z"></path>
-                            </svg>
+                            <div class="me-2">
+                                <svg class="navbar-menu-logo me-2" width="24px" height="24px" fill="white">
+                                    <path xmlns="http://www.w3.org/2000/svg" d="m4.65656,1.55555c1.01269,0 1.83458,0.85075 1.83458,1.89899l0,17.09091c0,1.04824 -0.82189,1.89899 -1.83458,1.89899l-1.82449,0c-1.01361,0 -1.83458,-0.85075 -1.83458,-1.89899l0,-17.09091c0,-1.04824 0.82098,-1.89899 1.83458,-1.89899l1.82449,0zm6.42103,0c1.01269,0 1.83458,0.85075 1.83458,1.89899l0,17.09091c0,1.04824 -0.82189,1.89899 -1.83458,1.89899l-1.82999,0c-1.01361,0 -1.83458,-0.85075 -1.83458,-1.89899l0,-17.09091c0,-1.04824 0.82098,-1.89899 1.83458,-1.89899l1.82999,0zm8.32937,3.36425l3.54074,14.70103c0.24492,1.01691 -0.35407,2.04806 -1.33649,2.30253l-1.80064,0.4643c-0.98242,0.25352 -1.9786,-0.36556 -2.22351,-1.38341l-3.54074,-14.70103c-0.24583,-1.01786 0.35316,-2.04806 1.33558,-2.30253l1.80064,-0.4643c0.98242,-0.25446 1.9786,0.36556 2.22443,1.38341z"></path>
+                                </svg>
+                            </div>
                             <h3 class="navbar-title">Academic book</h3>
                         </div>
                     </li>
@@ -53,9 +55,6 @@
                                         </li>
                                     </ul>
                                 </div>
-                            @else
-                                <a class="navbar-link" href="{{ route("registration")  }}">Регистрация</a>
-                                <a class="navbar-link" href="{{ route("login") }}">Авторизация</a>
                             @endauth
                         </div>
                     </li>
@@ -83,34 +82,91 @@
                                         <span class="navbar-menu-label">Главная</span>
                                     </a>
                                 </li>
-                                <li class="navbar-menu-item">
-                                    <a class="navbar-menu-link">
-                                        <span class="navbar-menu-indicator"></span>
-                                        <span class="navbar-menu-icon">📅</span>
-                                        <span class="navbar-menu-label">Расписание</span>
-                                    </a>
-                                </li>
-                                <li class="navbar-menu-item">
-                                    <a class="navbar-menu-link">
-                                        <span class="navbar-menu-indicator"></span>
-                                        <span class="navbar-menu-icon">📁</span>
-                                        <span class="navbar-menu-label">Последние события</span>
-                                    </a>
-                                </li>
-                                <li class="navbar-menu-item">
-                                    <a class="navbar-menu-link">
-                                        <span class="navbar-menu-indicator"></span>
-                                        <span class="navbar-menu-icon">🎓</span>
-                                        <span class="navbar-menu-label">Успеваемость</span>
-                                    </a>
-                                </li>
-                                <li class="navbar-menu-item">
-                                    <a class="navbar-menu-link">
-                                        <span class="navbar-menu-indicator"></span>
-                                        <span class="navbar-menu-icon">✅</span>
-                                        <span class="navbar-menu-label">Посещаемость</span>
-                                    </a>
-                                </li>
+                                @if(Auth()->user()->hasRole(["student", "teacher"]))
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link" href="{{route("timetable")}}">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📅</span>
+                                            <span class="navbar-menu-label">Расписание</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(Auth()->user()->hasRole(["student"]))
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📁</span>
+                                            <span class="navbar-menu-label">Последние события</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">🎓</span>
+                                            <span class="navbar-menu-label">Успеваемость</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">✅</span>
+                                            <span class="navbar-menu-label">Посещаемость</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(Auth()->user()->hasRole(["teacher"]))
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📝</span>
+                                            <span class="navbar-menu-label">Журнал посещаемости и успеваемости</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📂</span>
+                                            <span class="navbar-menu-label">Студенты</span>
+                                        </a>
+                                    </li>
+                                @endif
+                                @if(Auth()->user()->hasRole(["administrator"]))
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link" href="{{ route('students.students') }}">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📂</span>
+                                            <span class="navbar-menu-label">Студенты</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📂</span>
+                                            <span class="navbar-menu-label">Преподаватели</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📂</span>
+                                            <span class="navbar-menu-label">Группы</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📂</span>
+                                            <span class="navbar-menu-label">Пользователи системы</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📋</span>
+                                            <span class="navbar-menu-label">Отчёт по успеваемости</span>
+                                        </a>
+                                    </li>
+                                @endif
                             </ul>
                         </div>
                     </li>
@@ -127,11 +183,12 @@
 
     @section('footer_section')
         <footer class="main-footer">
-            Приложение разработано студентом Пивторак Богданом.
+            <p>Приложение разработано студентом Пивторак Богданом.</p>
         </footer>
     @show
 </div>
 
+@yield('scripts_section')
 
 <script src="{{asset("/js/main.js")}}"></script>
 </body>

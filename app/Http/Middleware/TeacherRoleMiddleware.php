@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Http\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-class test
+class TeacherRoleMiddleware
 {
     /**
      * Handle an incoming request.
@@ -15,6 +15,9 @@ class test
      */
     public function handle(Request $request, Closure $next): Response
     {
+        if(!Auth()->check() || !Auth()->user()->hasRole('teacher')){
+            abort(403, "Unauthorized action.");
+        }
         return $next($request);
     }
 }

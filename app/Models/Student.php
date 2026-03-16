@@ -24,7 +24,7 @@ class Student extends Model
 
     //1:M - One student has many grades.
     public function assesments(){
-        return $this->hasMany(Assesment::class);
+        return $this->hasMany(Assessment::class);
     }
 
     //1:M - There are many attendance records for one student.
@@ -35,5 +35,27 @@ class Student extends Model
     //M:1 - One student belongs to the same group.
     public function group(){
         return $this->belongsTo(Group::class);
+    }
+
+    public function averageAttendance() : float{
+        $totalAssessment = $this->attendances()->count();
+        if($totalAssessment == 0){
+            return 0;
+        }
+
+        $number = $this->attendances()
+            ->where('state', true)
+            ->count();
+
+        return ($number / $totalAssessment) * 100;
+    }
+
+    public function averageAssessment() : float{
+        $averageAttendance = $this->assesments()->average('mark');
+        if(!$averageAttendance){
+            return 0;
+        }
+
+        return $averageAttendance;
     }
 }
