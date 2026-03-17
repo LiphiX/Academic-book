@@ -13,12 +13,12 @@ class StudentController extends Controller
 {
     const ENTRIES_PER_PAGE = 20;
 
-    public function getStudents(Request $request){
+    public function index(Request $request){
         $page = $request->input('page', 0);
 
         $students = $this->takeStudent($page);
         $groups = Group::all();
-        return view('student.students', ['students'=>$students, 'groups' => $groups]);
+        return view('student.index', ['students'=>$students, 'groups' => $groups]);
     }
 
     public function uploadData(Request $request){
@@ -29,7 +29,6 @@ class StudentController extends Controller
 
         $objects = $students->map(fn($student) => StudentDTO::fromModel($student));
 
-        error_log($students);
         return ['students'=>$objects, 'groups' => $groups];
     }
 

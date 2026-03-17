@@ -9,8 +9,6 @@ window.addEventListener('DOMContentLoaded', () => {
         })
             .then(response => response.json())
             .then(data => {
-
-                console.log(data);
                 students = data.students;
                 groups = data.groups;
                 append(students, groups)

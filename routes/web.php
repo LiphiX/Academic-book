@@ -16,9 +16,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/account/profile', [\App\Http\Controllers\AccountController::class, 'getProfile'])->name('account.profile');
     Route::get('/timetable', [\App\Http\Controllers\TimetableController::class, 'getTimetable'])->name('timetable');
     Route::middleware(\App\Http\Middleware\AdministratorRoleMiddleware::class)->group(function () {
-        Route::get('/students/student', [\App\Http\Controllers\StudentController::class, 'getStudents'])->name('students.students');
+        Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
         Route::get('/students/uploadData', [\App\Http\Controllers\StudentController::class, 'uploadData'])->name('students.uploadData');
         Route::post('/students/assignGroup', [\App\Http\Controllers\StudentController::class, 'assignGroup'])->name('students.assignGroup');
+
+        Route::get('/teachers/index', [\App\Http\Controllers\TeacherController::class, 'index'])->name('teachers.index');
+        Route::get('/teachers/uploadData', [\App\Http\Controllers\TeacherController::class, 'uploadData'])->name('teachers.uploadData');
     });
 
 });

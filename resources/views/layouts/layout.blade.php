@@ -133,14 +133,14 @@
                                 @endif
                                 @if(Auth()->user()->hasRole(["administrator"]))
                                     <li class="navbar-menu-item">
-                                        <a class="navbar-menu-link" href="{{ route('students.students') }}">
+                                        <a class="navbar-menu-link" href="{{ route('students.index') }}">
                                             <span class="navbar-menu-indicator"></span>
                                             <span class="navbar-menu-icon">📂</span>
                                             <span class="navbar-menu-label">Студенты</span>
                                         </a>
                                     </li>
                                     <li class="navbar-menu-item">
-                                        <a class="navbar-menu-link">
+                                        <a class="navbar-menu-link" href="{{route('teachers.index')}}">
                                             <span class="navbar-menu-indicator"></span>
                                             <span class="navbar-menu-icon">📂</span>
                                             <span class="navbar-menu-label">Преподаватели</span>
