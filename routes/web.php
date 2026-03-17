@@ -18,6 +18,7 @@ Route::middleware(['auth'])->group(function () {
     Route::middleware(\App\Http\Middleware\AdministratorRoleMiddleware::class)->group(function () {
         Route::get('/students/student', [\App\Http\Controllers\StudentController::class, 'getStudents'])->name('students.students');
         Route::get('/students/uploadData', [\App\Http\Controllers\StudentController::class, 'uploadData'])->name('students.uploadData');
+        Route::post('/students/assignGroup', [\App\Http\Controllers\StudentController::class, 'assignGroup'])->name('students.assignGroup');
     });
 
 });

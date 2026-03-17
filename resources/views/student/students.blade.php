@@ -1,5 +1,9 @@
 @extends('layouts.layout')
 
+@section('meta_section')
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+@endsection
+
 @section('main_section')
     <div class="d-flex flex-column justify-content-center align-items-center overflow-x-auto">
         <h1>Данные о студентах</h1>

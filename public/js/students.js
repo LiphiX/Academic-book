@@ -48,4 +48,27 @@ window.addEventListener('DOMContentLoaded', () => {
 
     document.getElementById('uploadButton').addEventListener('click', uploadData);
     //$("uploadButton").click(() => uploadData());
+
+    $("select").change((event) => {
+        var option = $("option:selected", event.target);
+
+        var studentId = $(event.target).parent().parent().attr('data-id');
+        var groupId = option.attr('data-group-id');
+
+        const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
+        fetch(`/students/assignGroup`,{
+            method: 'POST',
+            credentials: 'include',
+            headers: {'Content-Type': 'application/json', 'X-CSRF-TOKEN': csrf_token},
+            body: JSON.stringify({
+                'studentId': studentId,
+                'groupId': groupId,
+            })})
+                .then(response => response.text())
+                .then(data => {
+                })
+                .catch(error => {
+                    console.log(error);
+                })
+    });
 })

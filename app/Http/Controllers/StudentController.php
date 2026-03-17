@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Dto\StudentDTO;
 use App\Models\Group;
 use App\Models\Student;
+use App\Services\StudentService;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
 class StudentController extends Controller
@@ -39,5 +41,21 @@ class StudentController extends Controller
             ->get();
 
         return $students;
+    }
+
+    public function assignGroup(Request $request){
+        error_log('test');
+        $studentId = $request->studentId;
+        $groupId = $request->groupId;
+
+        error_log(json_encode(['studentId'=>$studentId, 'groupId'=>$groupId]));
+
+        $service = new StudentService();
+        try {
+            $service->assignGroup($studentId, $groupId);
+        }
+        catch(ModelNotFoundException $exception){
+            return response()->json(['error'=>'Student or group not found'], 404);
+        }
     }
 }
