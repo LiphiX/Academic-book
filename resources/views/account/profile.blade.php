@@ -69,7 +69,7 @@
         <div class="d-flex justify-content-start">
             <p>Права пользователя:</p>
             @switch($user->role->name)
-                @case('guest')
+                @case('users')
                     <p>Гостевые</p>
                     @break
                 @case('student')

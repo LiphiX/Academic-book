@@ -22,6 +22,10 @@ Route::middleware(['auth'])->group(function () {
 
         Route::get('/teachers/index', [\App\Http\Controllers\TeacherController::class, 'index'])->name('teachers.index');
         Route::get('/teachers/uploadData', [\App\Http\Controllers\TeacherController::class, 'uploadData'])->name('teachers.uploadData');
+
+        Route::get('/users/guests', [\App\Http\Controllers\UsersController::class, 'getGuests'])->name('users.guests');
+        Route::get('/users/loadUser', [\App\Http\Controllers\UsersController::class, 'loadUser'])->name('users.loadUser');
+        Route::post('/users/saveAsStudent/{id}', [\App\Http\Controllers\UsersController::class, 'saveAsStudent'])->name('users.saveAsStudent');
     });
 
 });

@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="{{asset("lib/bootstrap/css/bootstrap.min.css")}}">
     <link rel="stylesheet" href="{{asset("css/style.css")}}">
 
-    <script src="{{asset("/lib/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
     <script src="{{asset("lib/jquery/jquery.min.js")}}"></script>
+    <script src="{{asset("/lib/bootstrap/js/bootstrap.bundle.min.js")}}"></script>
 </head>
 <body>
 <div class="main-container">

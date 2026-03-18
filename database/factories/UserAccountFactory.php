@@ -28,7 +28,7 @@ class UserAccountFactory extends Factory
 
     public function forPerson(Person $person){
 
-        $role = 'guest';
+        $role = 'users';
         if($person->teacher)
             $role = 'teacher';
         else if($person->student){
