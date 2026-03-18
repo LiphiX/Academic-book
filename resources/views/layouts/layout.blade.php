@@ -161,6 +161,13 @@
                                         </a>
                                     </li>
                                     <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link" href="{{route('users.guests')}}">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📂</span>
+                                            <span class="navbar-menu-label">Гости системы</span>
+                                        </a>
+                                    </li>
+                                    <li class="navbar-menu-item">
                                         <a class="navbar-menu-link">
                                             <span class="navbar-menu-indicator"></span>
                                             <span class="navbar-menu-icon">📋</span>

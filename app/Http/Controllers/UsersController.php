@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Department;
 use App\Models\Group;
 use App\Models\Person;
 use App\Models\UserAccount;
 use App\Services\PersonService;
 use App\Services\UserService;
+use Cassandra\Exception\AlreadyExistsException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Illuminate\Http\Request;
 
@@ -17,7 +19,7 @@ class UsersController extends Controller
         $service = new UserService();
 
 
-        return view('users.guests', ['guests' => $service->getGuests(), 'groups' => Group::all()]);
+        return view('users.guests', ['guests' => $service->getGuests(), 'groups' => Group::all(), 'faculties' => Department::all()]);
     }
 
     public function loadUser(Request $request){
@@ -51,18 +53,63 @@ class UsersController extends Controller
         $user = $userService->find($userId);
         $person = $user->person;
 
+        if($person->student)
+            return response("User is already student", 409);
+
         $person->surname = $surname;
         $person->name = $name;
         $person->patronymic = $patronymic;
 
+
         try {
             $personService->update($person);
-        }catch(ModelNotFoundException $exception){
+
+            $userService->assignAsStudent($userId, $groupId);
+        }
+        catch(ModelNotFoundException $exception){
             return response("", 404);
         }
+        catch(AlreadyExistsException $exception){
+            return response("", 409);
+        }
 
-        $userService->assignAsStudent($userId, $groupId);
-        error_log(json_encode($person));
+
+        return response("", 200);
+    }
+
+    public function saveAsTeacher(Request $request, $id){
+        $userId = $id;
+        $surname = $request->surname;
+        $name = $request->name;
+        $patronymic = $request->patronymic;
+        $facultyId = $request->facultyId;
+
+        $personService = new PersonService();
+        $userService = new UserService();
+
+        $user = $userService->find($userId);
+        $person = $user->person;
+
+        if($person->teacher)
+            return response('User is already teacher', 409);
+
+        $person->surname = $surname;
+        $person->name = $name;
+        $person->patronymic = $patronymic;
+
+        try{
+            $personService->update($person);
+
+            $userService->assignAsTeacher($userId, $facultyId);
+        }
+        catch(ModelNotFoundException $exception){
+            return response("", 404);
+        }
+        catch(AlreadyExistsException $exception){
+            return response("", 409);
+        }
+
+        return response("", 200);
     }
 
 }

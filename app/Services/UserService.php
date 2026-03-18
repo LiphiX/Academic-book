@@ -5,7 +5,9 @@ namespace App\Services;
 use App\Models\Group;
 use App\Models\Role;
 use App\Models\Student;
+use App\Models\Teacher;
 use App\Models\UserAccount;
+use Cassandra\Exception\AlreadyExistsException;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 class UserService
@@ -17,6 +19,7 @@ class UserService
     public function __construct(
         private readonly PersonService $personService = new PersonService,
         private readonly StudentService $studentService = new StudentService,
+        private readonly TeacherService $teacherService = new TeacherService,
     )
     {
     }
@@ -57,9 +60,17 @@ class UserService
     public function assignAsStudent($userId, $groupId)
     {
         $user = $this->find($userId);
-        $personId = $this->personService->find($user->id);
+        $person = $this->personService->find($user->person_id);
+        $personId = $person->id;
 
-        $this->studentService->createStudent($userId, $groupId);
+        if($person->student)
+            throw new AlreadyExistsException("Student already exists");
+
+        $student = new Student();
+        $student->person_id = $personId;
+        $student->group_id = $groupId;
+
+        $this->studentService->create($student);
 
         if($user->role->name == 'guest')
             $user->role_id = Role::all()->where('name', 'student')->first()->id;
@@ -67,5 +78,29 @@ class UserService
         $user->save();
 
         return true;
+    }
+
+    public function assignAsTeacher($userId, $facultyId)
+    {
+        $user = $this->find($userId);
+        $person = $this->personService->find($user->person_id);
+
+        if($person->teacher)
+            throw new AlreadyExistsException("Student already exists");
+
+        $teacher = new Teacher();
+        $teacher->person_id = $person->id;
+        $teacher->department_id = $facultyId;
+
+        $this->teacherService->create($teacher);
+
+
+        if($user->role->name == 'guest')
+            $user->role_id = Role::all()->where('name', 'teacher')->first()->id;
+
+        $user->save();
+
+        $this->teacherService->create($teacher);
+
     }
 }

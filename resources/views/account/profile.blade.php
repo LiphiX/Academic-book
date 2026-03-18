@@ -51,7 +51,7 @@
                     <div class="d-flex">
                         <div class="card-profile-item">
                             <label for="department" class="card-profile-item-label">Факультет</label>
-                            <input id="department" class="card-profile-item-input" readonly value="{{$user->person->student->group->speciality->department->name}}"/>
+                            <input id="department" class="card-profile-item-input" readonly value="{{$user->person->teacher->department->name}}"/>
                         </div>
                     </div>
                 @endif

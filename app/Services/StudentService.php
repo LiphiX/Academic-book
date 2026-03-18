@@ -32,6 +32,18 @@ class StudentService
         return $number != 0;
     }
 
+    public function isExist($id) : bool{
+        $student = Student::all()
+            ->where('id', $id)
+            ->first();
+
+        if(!$student){
+            return false;
+        }
+
+        return true;
+    }
+
     public function find($id){
         $student = Student::all()
             ->where('id', $id)
@@ -44,7 +56,38 @@ class StudentService
         return $student;
     }
 
-    public function createStudent($personId, $groupId){
+    public function findOrDefault($id){
+        $student = Student::all()
+            ->where('id', $id)
+            ->first();
+
+        return $student;
+    }
+
+    public function create(Student $student){
+        if(!$student)
+            throw new ModelNotFoundException("Student not found");
+
+
+        $person = $this->personService->find($student->person_id);
+
+        if(!$person)
+            throw new ModelNotFoundException("Person not found");
+
+
+        $group = $this->groupService->findOrDefault($student->group_id);
+        if(!$group)
+            throw new ModelNotFoundException("Group not found");
+
+        $student->receipt_date = date("Y-m-d");
+
+        $student->save();
+
+        return true;
+    }
+
+    /*
+    public function create($personId, $groupId){
         $person = $this->personService->find($personId);
         $group = $this->groupService->find($groupId);
 
@@ -55,6 +98,7 @@ class StudentService
 
         $student->save();
     }
+    */
 
 
 }

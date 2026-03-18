@@ -2,9 +2,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
     let guestId;
 
-    const modalElement = document.getElementById("studentModal");
-    const modal = new bootstrap.Modal(modalElement);
-    studentForm = document.getElementById("studentForm");
+    const studentModalElement = document.getElementById("studentModal");
+    const studentModal = new bootstrap.Modal(studentModalElement);
+    let studentForm = document.getElementById("studentForm");
+
+    const teacherModalElement = document.getElementById("teacherModal");
+    const teacherModal = new bootstrap.Modal(teacherModalElement);
+    let teacherForm = document.getElementById('teacherForm');
 
     document.querySelectorAll('.student').forEach(btn => {
         btn.addEventListener('click', async (event) => {
@@ -13,20 +17,20 @@ document.addEventListener('DOMContentLoaded', () => {
             const data = await loadUser();
 
             studentForm[0].value = data.surname;
-            studentForm[1].value = data.surname;
-            studentForm[2].value = data.surname;
+            studentForm[1].value = data.name;
+            studentForm[2].value = data.patronymic;
 
             guestId = $(event.target).parent().parent().attr('data-id');
 
 
-            modal.show()
+            studentModal.show()
         });
     });
 
     studentForm.addEventListener('submit', async (event) => {
         event.preventDefault();
 
-        modal.hide();
+        studentModal.hide();
 
         const select = document.getElementById('selectGroup');
 
@@ -44,6 +48,42 @@ document.addEventListener('DOMContentLoaded', () => {
             body: formData
         });
     });
+
+    document.querySelectorAll('.teacher').forEach(btn => {
+        btn.addEventListener('click', async (event) => {
+            guestId = $(event.target).parent().parent().attr('data-id');
+
+            const data = await loadUser();
+
+            teacherForm[0].value = data.surname;
+            teacherForm[1].value = data.name;
+            teacherForm[2].value = data.patronymic;
+
+            guestId = $(event.target).parent().parent().attr('data-id');
+
+            teacherModal.show()
+        });
+    });
+
+    teacherForm.addEventListener('submit', async (event) => {
+        event.preventDefault();
+
+        teacherModal.hide();
+
+        const select = document.getElementById('selectFaculty');
+        const facultyId = select.options[select.selectedIndex].getAttribute('data-faculty-id');
+
+        const formData = new FormData(teacherForm);
+        formData.append('facultyId', facultyId);
+
+
+        await fetch(`/users/saveAsTeacher/${guestId}`, {
+            method: 'POST',
+            credentials: 'include',
+            headers: {'X-CSRF-TOKEN': `${csrf_token}`},
+            body: formData
+        });
+    })
 
     async function loadUser(){
 

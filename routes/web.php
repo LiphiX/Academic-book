@@ -26,6 +26,7 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/guests', [\App\Http\Controllers\UsersController::class, 'getGuests'])->name('users.guests');
         Route::get('/users/loadUser', [\App\Http\Controllers\UsersController::class, 'loadUser'])->name('users.loadUser');
         Route::post('/users/saveAsStudent/{id}', [\App\Http\Controllers\UsersController::class, 'saveAsStudent'])->name('users.saveAsStudent');
+        Route::post('/users/saveAsTeacher/{id}', [\App\Http\Controllers\UsersController::class, 'saveAsTeacher'])->name('users.saveAsTeacher');
     });
 
 });
