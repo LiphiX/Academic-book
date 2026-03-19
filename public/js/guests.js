@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
-    let guestId;
+    let record;
 
     const studentModalElement = document.getElementById("studentModal");
     const studentModal = new bootstrap.Modal(studentModalElement);
@@ -12,16 +12,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     document.querySelectorAll('.student').forEach(btn => {
         btn.addEventListener('click', async (event) => {
-            guestId = $(event.target).parent().parent().attr('data-id');
+            record = $(event.target).parent().parent();
 
             const data = await loadUser();
 
             studentForm[0].value = data.surname;
             studentForm[1].value = data.name;
             studentForm[2].value = data.patronymic;
-
-            guestId = $(event.target).parent().parent().attr('data-id');
-
 
             studentModal.show()
         });
@@ -31,6 +28,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         studentModal.hide();
+
+        const guestId = record.attr('data-id');
 
         const select = document.getElementById('selectGroup');
 
@@ -47,19 +46,19 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {'X-CSRF-TOKEN': `${csrf_token}`},
             body: formData
         });
+
+        record.remove();
     });
 
     document.querySelectorAll('.teacher').forEach(btn => {
         btn.addEventListener('click', async (event) => {
-            guestId = $(event.target).parent().parent().attr('data-id');
+            record = $(event.target).parent().parent();
 
             const data = await loadUser();
 
             teacherForm[0].value = data.surname;
             teacherForm[1].value = data.name;
             teacherForm[2].value = data.patronymic;
-
-            guestId = $(event.target).parent().parent().attr('data-id');
 
             teacherModal.show()
         });
@@ -69,6 +68,8 @@ document.addEventListener('DOMContentLoaded', () => {
         event.preventDefault();
 
         teacherModal.hide();
+
+        const guestId = record.attr('data-id');
 
         const select = document.getElementById('selectFaculty');
         const facultyId = select.options[select.selectedIndex].getAttribute('data-faculty-id');
@@ -83,9 +84,12 @@ document.addEventListener('DOMContentLoaded', () => {
             headers: {'X-CSRF-TOKEN': `${csrf_token}`},
             body: formData
         });
+
+        record.remove();
     })
 
     async function loadUser(){
+        const guestId = record.attr('data-id');
 
         const csrf_token = document.querySelector('meta[name="csrf-token"]').content;
         const fetchData= await fetch(`/users/loadUser?id=${guestId}`, {
