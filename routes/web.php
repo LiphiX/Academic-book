@@ -14,7 +14,6 @@ Route::middleware(['auth'])->group(function () {
     })->name('main');
 
     Route::get('/account/profile', [\App\Http\Controllers\AccountController::class, 'getProfile'])->name('account.profile');
-    Route::get('/timetable', [\App\Http\Controllers\TimetableController::class, 'getTimetable'])->name('timetable');
     Route::middleware(\App\Http\Middleware\AdministratorRoleMiddleware::class)->group(function () {
         Route::get('/students/index', [\App\Http\Controllers\StudentController::class, 'index'])->name('students.index');
         Route::get('/students/uploadData', [\App\Http\Controllers\StudentController::class, 'uploadData'])->name('students.uploadData');
@@ -27,6 +26,10 @@ Route::middleware(['auth'])->group(function () {
         Route::get('/users/loadUser', [\App\Http\Controllers\UsersController::class, 'loadUser'])->name('users.loadUser');
         Route::post('/users/saveAsStudent/{id}', [\App\Http\Controllers\UsersController::class, 'saveAsStudent'])->name('users.saveAsStudent');
         Route::post('/users/saveAsTeacher/{id}', [\App\Http\Controllers\UsersController::class, 'saveAsTeacher'])->name('users.saveAsTeacher');
+    });
+
+    Route::middleware(\App\Http\Middleware\StudentRoleMiddleware::class)->group(function () {
+       Route::get('/timetables/studentTimetable', [\App\Http\Controllers\TimetablesController::class, 'getStudentTimetable'])->name('timetables.studentTimetable');
     });
 
 });

@@ -85,7 +85,7 @@
                                 </li>
                                 @if(Auth()->user()->hasRole(["student", "teacher"]))
                                     <li class="navbar-menu-item">
-                                        <a class="navbar-menu-link" href="{{route("timetable")}}">
+                                        <a class="navbar-menu-link" href="{{route("timetables.studentTimetable")}}">
                                             <span class="navbar-menu-indicator"></span>
                                             <span class="navbar-menu-icon">📅</span>
                                             <span class="navbar-menu-label">Расписание</span>
