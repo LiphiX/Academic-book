@@ -29,7 +29,11 @@
                     @foreach(array_keys($weekDays) as $weekDay)
                         @if(isset($days[$weekDay]) && is_array($days[$weekDay]))
                             <td>
-                                {{$days[$weekDay]['discipline']}}
+                                <div class="">
+                                    <p class="">{{$days[$weekDay]['discipline']}}</p>
+                                    <p class=" text-muted fs-7">{{$days[$weekDay]['class_type']}}</p>
+                                    <p class="text-muted fs-7">{{$days[$weekDay]['teacher_surname']}} {{mb_substr($days[$weekDay]['teacher_name'], 0, 1, 'UTF-8')}}. {{$days[$weekDay]['teacher_patronymic'] ? mb_substr($days[$weekDay]['teacher_patronymic'], 0, 1, 'UTF-8') . '.' : ""}}</p>
+                                </div>
                             </td>
                         @else
                             <td></td>
