@@ -27,6 +27,14 @@ class TeacherService
         return $teacher;
     }
 
+    public function findOrDefault($teacherId){
+        $teacher = Teacher::all()
+            ->where("id", $teacherId)
+            ->first();
+
+        return $teacher;
+}
+
     public function create(Teacher $teacher){
         if(!$teacher) {
             throw new ModelNotFoundException('Teacher not found');

@@ -83,7 +83,7 @@
                                         <span class="navbar-menu-label">Главная</span>
                                     </a>
                                 </li>
-                                @if(Auth()->user()->hasRole(["student", "teacher"]))
+                                @if(Auth()->user()->hasRole(["student"]))
                                     <li class="navbar-menu-item">
                                         <a class="navbar-menu-link" href="{{route("timetables.studentTimetable")}}">
                                             <span class="navbar-menu-indicator"></span>
@@ -91,8 +91,6 @@
                                             <span class="navbar-menu-label">Расписание</span>
                                         </a>
                                     </li>
-                                @endif
-                                @if(Auth()->user()->hasRole(["student"]))
                                     <li class="navbar-menu-item">
                                         <a class="navbar-menu-link">
                                             <span class="navbar-menu-indicator"></span>
@@ -116,6 +114,13 @@
                                     </li>
                                 @endif
                                 @if(Auth()->user()->hasRole(["teacher"]))
+                                    <li class="navbar-menu-item">
+                                        <a class="navbar-menu-link" href="{{route("timetables.teacherTimetable")}}">
+                                            <span class="navbar-menu-indicator"></span>
+                                            <span class="navbar-menu-icon">📅</span>
+                                            <span class="navbar-menu-label">Расписание</span>
+                                        </a>
+                                    </li>
                                     <li class="navbar-menu-item">
                                         <a class="navbar-menu-link">
                                             <span class="navbar-menu-indicator"></span>

@@ -32,4 +32,8 @@ Route::middleware(['auth'])->group(function () {
        Route::get('/timetables/studentTimetable', [\App\Http\Controllers\TimetablesController::class, 'getStudentTimetable'])->name('timetables.studentTimetable');
     });
 
+    Route::middleware(\App\Http\Middleware\TeacherRoleMiddleware::class)->group(function () {
+        Route::get('/timetables/teacherTimetable', [\App\Http\Controllers\TimetablesController::class, 'getTeacherTimetable'])->name('timetables.teacherTimetable');
+    });
+
 });
